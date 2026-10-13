@@ -1,0 +1,23 @@
+[project]
+name = "CSPC118_final-project"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "MysticalMike60t", email = "121118774+MysticalMike60t@users.noreply.github.com" }
+]
+requires-python = ">=3.14"
+dependencies = []
+
+[project.scripts]
+cspc118-final-project = "main:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+only-include = ["src"]
+
+[tool.hatch.build.targets.wheel.sources]
+"src" = ""
