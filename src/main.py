@@ -18,7 +18,7 @@ if __name__ == "__main__":
     except KeyboardInterrupt:  # Prayer wasn't answered :(
         # Be sad that the person interrupted this perfection
         # Also make it red to show the sadness you caused
-        print(  # Scary ANSI escapes mumbo-jumbo
+        print(  # Scary ANSI escape mumbo-jumbo
             "\r\x1b[K\x1b[31mYou killed me :(\x1b[0m", file=sys.stderr
         )
         try:
