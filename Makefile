@@ -5,7 +5,7 @@ entry := src/main.py
 build: pyinstaller
 
 pyinstaller:
-	uv run --with pyinstaller pyinstaller build.spec
+	uv run --with pyinstaller pyinstaller --clean build.spec
 
 .PHONY: clean
 clean:
