@@ -3,6 +3,7 @@ import http.client as http
 from rich.pretty import pprint
 
 
+# Rename this. Very weird and stupid name you idiot
 class HandleStatusCode:
     def print(self, res: http.HTTPResponse | int):
         if isinstance(res, http.HTTPResponse):
