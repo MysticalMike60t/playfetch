@@ -4,6 +4,12 @@ import sys
 import requests
 from handles import HandleStatusCode
 
+# IDEA: Gets ALL information useful to OSINT. Not just from a single platform, and also
+# not just a google search.
+
+# IDEA: Checks business or other official records hosted places for names in domain,
+# or inside of the page's main/branding elements detected by algorithm.
+
 
 def main() -> int:
     inputs = {"domain": input("Domain: "), "path": input("Path: ")}
