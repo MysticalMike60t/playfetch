@@ -1,22 +1,42 @@
+import logging
 import os
 import sys
 
+import misc
 import requests
+from config import CONFIG
 from handles import HandleStatusCode
+from log import log
 
 # IDEA: Gets ALL information useful to OSINT. Not just from a single platform, and also
 # not just a google search.
 
 # IDEA: Also include email, name, phone number, etc. inputs.
 
+# IDEA: Input can be a profile. Basically every option mentioned above,
+# but also including business name, address, social media handles, etc.
+
 # IDEA: Checks business or other official records hosted places for names in domain,
 # or inside of the page's main/branding elements detected by algorithm.
+
+logger = logging.getLogger(__name__)
+logging.basicConfig(filename=f"{CONFIG.paths.logs}/{__name__}.log", level=logging.DEBUG)
 
 
 def main() -> int:
     inputs = {"domain": input("Domain: "), "path": input("Path: ")}
     res = requests.get_page(inputs["domain"], inputs["path"])
+    if __debug__:
+        log(f"{CONFIG.session.id}_request-response").debug(res)
+        log(f"{CONFIG.session.id}_request-response").debug(res.status)
     HandleStatusCode().print(res.status)
+    if __debug__:
+        logger.debug(res.read())
+        logger.debug(misc.parse_html(res.read()))
+    html_soup = misc.parse_html(res.read())
+    if __debug__:
+        logger.debug(misc.extract_links(html_soup))
+    misc.write_links_list(misc.extract_links(html_soup))
     return 0
 
 

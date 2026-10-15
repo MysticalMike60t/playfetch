@@ -2,7 +2,7 @@
 
 
 a = Analysis(
-    ["src/main.py"],
+    ["../src/main.py"],
     pathex=[],
     binaries=[],
     datas=[],
@@ -44,12 +44,10 @@ a = Analysis(
         "urllib.request",
         "_scproxy",
         "statistics",
-        "traceback",
         "tracemalloc",
         "_winapi",
         "wmi",
         "ftplib",
-        "logging",
         "mimetypes",
         "py_compile",
     ],

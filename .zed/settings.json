@@ -1,0 +1,12 @@
+{
+  "languages": {
+    "Make": {
+      "auto_indent": "none",
+      "auto_indent_on_paste": false,
+      "format_on_save": "off",
+      "ensure_final_newline_on_save": true,
+      "hard_tabs": true,
+      "tab_size": 4,
+    },
+  },
+}
