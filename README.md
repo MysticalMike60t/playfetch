@@ -1,5 +1,5 @@
 <img width="100%" alt="PlayFetch Banner" src=".github/README_ASSETS/4.png" />
-
+<img width="100%" alt="PlayFetch Banner Subtitle" src=".github/README_ASSETS/4_1.png" />
 <hr />
 
 <div align="center">
