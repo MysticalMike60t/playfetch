@@ -22,7 +22,7 @@ exe = EXE(
     a.binaries,
     a.datas,
     [],
-    name="cspc118_final_project",
+    name="playfetch",
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,

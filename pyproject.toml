@@ -1,7 +1,7 @@
 [project]
-name = "CSPC118_final-project"
+name = "playfetch"
 version = "0.1.0"
-description = "Add your description here"
+description = "Final python group project and presentation for CSPC 118, 2026."
 readme = "README.md"
 authors = [
     { name = "MysticalMike60t", email = "121118774+MysticalMike60t@users.noreply.github.com" }
@@ -17,7 +17,7 @@ dependencies = [
 ]
 
 [project.scripts]
-cspc118-final-project = "main:main"
+playfetch = "main:main"
 
 [build-system]
 requires = ["hatchling"]

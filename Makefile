@@ -1,4 +1,4 @@
-name := cspc118_final_project
+name := playfetch
 entry := src/main.py
 specs_folder := ./specs
 output_dir := ./out
