@@ -4,8 +4,8 @@
 
 <div align="center">
 
-[Project Details][1]
-[Installation][2]
+[Project Details][1]::
+[Installation][2]::
 [Wiki][3]
 
 </div>
