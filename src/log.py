@@ -2,7 +2,7 @@ import logging
 
 from config import CONFIG
 
-LOG_DIR = CONFIG.paths.logs
+LOG_DIR = CONFIG.paths.logs  # Add type defs
 LOG_DIR.mkdir(exist_ok=True)
 FORMAT = logging.Formatter("%(asctime)s %(levelname)s: %(message)s", "%H:%M:%S")
 

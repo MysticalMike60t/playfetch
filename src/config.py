@@ -7,7 +7,8 @@ from types import SimpleNamespace
 _binary = Path(sys.executable)
 _working_dir = Path(os.path.abspath(os.path.dirname(__file__)))
 
-CONFIG: SimpleNamespace = SimpleNamespace(
+CONFIG: SimpleNamespace = SimpleNamespace(  # Add type defs
+    defaults=SimpleNamespace(http_res_content_encoding="utf-8"),
     session=SimpleNamespace(id=str(random.getrandbits(32))),
     paths=SimpleNamespace(
         bin=Path(_binary),

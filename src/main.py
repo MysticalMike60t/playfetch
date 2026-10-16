@@ -2,7 +2,8 @@ import logging
 import os
 import sys
 
-import misc
+import decode
+import parse
 import requests
 from config import CONFIG
 from handles import HandleStatusCode
@@ -30,13 +31,8 @@ def main() -> int:
         log(f"{CONFIG.session.id}_request-response").debug(res)
         log(f"{CONFIG.session.id}_request-response").debug(res.status)
     HandleStatusCode().print(res.status)
-    if __debug__:
-        logger.debug(res.read())
-        logger.debug(misc.parse_html(res.read()))
-    html_soup = misc.parse_html(res.read())
-    if __debug__:
-        logger.debug(misc.extract_links(html_soup))
-    misc.write_links_list(misc.extract_links(html_soup))
+    html = decode.http_res_content_compression(res)  # Add type defs
+    parse.html(html)
     return 0
 
 
