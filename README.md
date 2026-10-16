@@ -1,3 +1,6 @@
+> [!NOTE]
+> This is made for my final project in CSPC 118.
+
 <img width="100%" alt="PlayFetch Banner" src=".github/README_ASSETS/4.png" />
 <img width="100%" alt="PlayFetch Banner Subtitle" src=".github/README_ASSETS/4_1.png" />
 <hr />
