@@ -1,0 +1,94 @@
+<head>
+  <title>Test HTML Page</title>
+  <style>
+    :root {
+      --accent-color: rgb(180, 120, 120);
+      --bg-color: #ffffff;
+      --text-color: #000000;
+      --link-color: var(--accent-color);
+      --muted-color: rgb(100, 100, 100);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --accent-color: rgb(230, 140, 140);
+        --bg-color: #121212;
+        --text-color: #eeeeee;
+        --link-color: var(--accent-color);
+        --muted-color: rgb(100, 100, 100);
+      }
+    }
+  </style>
+  <style>
+    html {
+      display: table;
+      margin: auto;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      display: table-cell;
+      vertical-align: middle;
+      padding-top: clamp(10rem, 10%, 20rem);
+    }
+
+    a {
+      color: var(--link-color);
+    }
+
+    h1 {
+      font-size: 4rem;
+      text-transform: uppercase;
+    }
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 1rem 0rem;
+      background: rgb(25, 25, 25);
+      outline: 1px solid rgb(75, 75, 75);
+      overflow: hidden;
+    }
+
+    ul > li:before {
+      content: ">";
+      font: 1rem Arial;
+      margin-right: 5px;
+      color: var(--muted-color);
+    }
+
+    li {
+      cursor: default;
+      width: fit-content;
+      transform: translateX(-2px);
+    }
+    li:not(li:last-child) {
+      margin-bottom: 0.5rem;
+    }
+
+    li:hover::before {
+      color: var(--accent-color);
+    }
+    li a {
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Scraper Tests</h1>
+  <ul>
+    <li>
+      <span
+        >Simple page:
+        <a href="/tests/simple.html"><code>/tests/simple.html</code></a></span
+      >
+    </li>
+    <li>
+      <span
+        >Complex page:
+        <a href="/tests/complex.html"><code>/tests/complex.html</code></a></span
+      >
+    </li>
+  </ul>
+</body>

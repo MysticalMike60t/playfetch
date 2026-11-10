@@ -2,6 +2,9 @@
 .logs/
 *.log
 .tmp/
+.temp/
+.datafile
+.datadump/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

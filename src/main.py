@@ -1,13 +1,13 @@
-import logging
 import os
+import random
 import sys
+from datetime import datetime
 
-import decode
-import parse
 import requests
-from config import CONFIG
-from handles import HandleStatusCode
-from log import log
+from bs4 import BeautifulSoup
+
+import analyze
+import config
 
 # IDEA: Gets ALL information useful to OSINT. Not just from a single platform, and also
 # not just a google search.
@@ -20,19 +20,46 @@ from log import log
 # IDEA: Checks business or other official records hosted places for names in domain,
 # or inside of the page's main/branding elements detected by algorithm.
 
-logger = logging.getLogger(__name__)
-logging.basicConfig(filename=f"{CONFIG.paths.logs}/{__name__}.log", level=logging.DEBUG)
-
 
 def main() -> int:
-    inputs = {"domain": input("Domain: "), "path": input("Path: ")}
-    res = requests.get_page(inputs["domain"], inputs["path"])
-    if __debug__:
-        log(f"{CONFIG.session.id}_request-response").debug(res)
-        log(f"{CONFIG.session.id}_request-response").debug(res.status)
-    HandleStatusCode().print(res.status)
-    html = decode.http_res_content_compression(res)  # Add type defs
-    parse.html(html)
+    if not os.path.exists(config.Paths.datadump):
+        os.mkdir(config.Paths.datadump)
+    inputs = {"domain": input("Domain: "), "path": input("Path (without first '/'): ")}
+    config.Paths.cwd = f"{config.Paths.datadump}"
+    print(f"Current working directory: {config.Paths.cwd}")
+    timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
+    cleaned_domain = inputs["domain"].replace(".", "_")
+    dump_path = f"{config.Paths.cwd}/{timestamp}_{cleaned_domain}"
+    print(f"Current dump directory: {dump_path}")
+    config.Paths.cwd = f"{dump_path}"
+    if not os.path.exists(dump_path):
+        os.mkdir(dump_path)
+    print(
+        f"Current working directory (after switching to dump_path): {config.Paths.cwd}"
+    )
+    config.Paths.datafile = (
+        f"{dump_path}/{random.randrange(100000, 999999)}_{cleaned_domain}"
+    )
+    print(f"Current datafile path: {config.Paths.datafile}")
+    with open(config.Paths.datafile, "a") as datafile:
+        datafile.writelines(
+            [
+                "User input:\n",
+                f"\tDomain: {inputs['domain']}\n",
+                f"\tPath: {inputs['path']}\n",
+                "\n",
+            ]
+        )
+        print("Wrote domain and path to datafile")
+    res = requests.get(
+        f"http://{inputs['domain']}/{inputs['path']}"
+    )  # Add validation and ask if HTTPS (defaults to yes)
+    print("Finished HTTP/HTTPS request")
+    soup = BeautifulSoup(res.content, "html.parser")
+    print("Created soup")
+    print("Starting analysis")
+    analyze.navigation(soup)
+    print("Finished analysis")
     return 0
 
 

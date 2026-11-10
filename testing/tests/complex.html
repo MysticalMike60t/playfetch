@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-page="scrape-fixture" data-version="1.0.0">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Kitchen-sink HTML fixture for testing web scrapers.">
+  <meta name="keywords" content="scraping, fixture, test, html, mock data">
+  <meta name="author" content="Fixture Generator">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#1a1a1a">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- OpenGraph / Twitter -->
+  <meta property="og:title" content="Scrape Test Fixture">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://example.com/fixture">
+  <meta property="og:image" content="https://example.com/og.png">
+  <meta property="og:description" content="Every element, mock data, edge cases.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@example">
+  <title>Scrape Test Fixture — Every Element</title>
+  <link rel="canonical" href="https://example.com/fixture">
+  <link rel="alternate" hreflang="es" href="https://example.com/es/fixture">
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed.xml">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23d97757'/%3E%3C/svg%3E">
+  <link rel="next" href="/fixture?page=2">
+
+  <!-- Structured data: JSON-LD -->
+  <script type="application/ld+json" id="jsonld-org">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Acme Widgets LLC",
+    "url": "https://example.com",
+    "logo": "https://example.com/logo.png",
+    "contactPoint": { "@type": "ContactPoint", "telephone": "+1-555-010-0100", "contactType": "customer service" },
+    "sameAs": ["https://github.com/example", "https://x.com/example"]
+  }
+  </script>
+  <script type="application/ld+json" id="jsonld-product">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Quantum Widget Pro",
+    "sku": "QW-PRO-001",
+    "brand": { "@type": "Brand", "name": "Acme" },
+    "offers": { "@type": "Offer", "price": "249.99", "priceCurrency": "USD", "availability": "https://schema.org/InStock" },
+    "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.6", "reviewCount": "1287" }
+  }
+  </script>
+
+  <!-- Inline state blob (common in SPAs) -->
+  <script id="__INITIAL_STATE__">
+    window.__INITIAL_STATE__ = {"user":{"id":42,"name":"Jane Doe","role":"admin"},"cart":{"items":3,"total":412.47},"flags":{"beta":true}};
+  </script>
+  <script type="application/json" id="next-data">{"props":{"pageProps":{"slug":"fixture","posts":[{"id":1,"title":"Hidden in JSON"},{"id":2,"title":"Also in JSON"}]}},"buildId":"abc123"}</script>
+
+  <style>
+    :root { --bg:#141414; --fg:#e8e6e3; --muted:#9a968f; --accent:#d97757; --border:#2e2e2e; --card:#1c1c1c; }
+    * { box-sizing: border-box; }
+    body { margin:0; font:15px/1.55 system-ui, sans-serif; background:var(--bg); color:var(--fg); }
+    header, main, footer { max-width: 1100px; margin: 0 auto; padding: 16px; }
+    a { color: var(--accent); }
+    section { border:1px solid var(--border); border-radius:8px; padding:16px; margin:16px 0; background:var(--card); }
+    table { border-collapse: collapse; width:100%; }
+    th, td { border:1px solid var(--border); padding:6px 8px; text-align:left; }
+    .grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); gap:12px; }
+    .card { border:1px solid var(--border); border-radius:6px; padding:12px; }
+    .price::before { content: "$"; }          /* CSS-generated text: invisible to DOM scrapers */
+    .css-only::after { content: "CSS_PSEUDO_TEXT"; }
+    .visually-hidden { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); }
+    .display-none { display:none; }
+    .offscreen { position:absolute; left:-9999px; }
+    .honeypot { display:none !important; }
+    input, select, textarea, button { font:inherit; margin:4px 0; }
+    label { display:block; margin-top:8px; }
+    nav ul { list-style:none; padding:0; display:flex; gap:12px; flex-wrap:wrap; }
+    pre { overflow-x:auto; background:#0e0e0e; padding:8px; }
+    #infinite-list li { padding:4px 0; }
+    @media (max-width:600px){ header, main, footer { padding: 8px 16px; } }
+  </style>
+  <noscript><style>.js-only { display:none; }</style></noscript>
+</head>
+
+<body id="top" class="fixture-body" itemscope itemtype="https://schema.org/WebPage">
+
+<!-- ================================================================ HEADER / NAV -->
+<header id="site-header" role="banner">
+  <hgroup>
+    <h1 id="page-title" itemprop="name">Scrape Test Fixture</h1>
+    <p class="subtitle">Every HTML element + mock data + scraper edge cases</p>
+  </hgroup>
+  <nav id="main-nav" aria-label="Primary">
+    <ul>
+      <li><a href="/" data-nav="home">Home</a></li>
+      <li><a href="/products" data-nav="products">Products</a></li>
+      <li><a href="https://example.com/about" data-nav="about" rel="noopener">About (absolute)</a></li>
+      <li><a href="../blog/" data-nav="blog">Blog (relative ../)</a></li>
+      <li><a href="?q=widgets&amp;sort=price_desc" data-nav="search">Query-string link</a></li>
+      <li><a href="#tables" data-nav="anchor">Fragment link</a></li>
+      <li><a href="mailto:sales@example.com" data-nav="email">Email</a></li>
+      <li><a href="tel:+15550100100" data-nav="phone">Phone</a></li>
+      <li><a href="javascript:void(0)" data-nav="js">javascript: link</a></li>
+      <li><a href="/file.pdf" download="report.pdf">Download link</a></li>
+      <li><a href="https://example.org" target="_blank" rel="noopener noreferrer nofollow">External _blank</a></li>
+      <li><a>Anchor without href</a></li>
+    </ul>
+  </nav>
+  <search id="site-search">
+    <form action="/search" method="get" role="search">
+      <input type="search" name="q" placeholder="Search…" aria-label="Search">
+      <button type="submit">Go</button>
+    </form>
+  </search>
+  <nav aria-label="Breadcrumb" id="breadcrumb">
+    <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a itemprop="item" href="/"><span itemprop="name">Home</span></a><meta itemprop="position" content="1"></li>
+      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a itemprop="item" href="/test"><span itemprop="name">Test</span></a><meta itemprop="position" content="2"></li>
+      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><span itemprop="name">Fixture</span><meta itemprop="position" content="3"></li>
+    </ol>
+  </nav>
+</header>
+
+<main id="content" role="main">
+
+<!-- ================================================================ TEXT / INLINE SEMANTICS -->
+<section id="text" aria-labelledby="h-text">
+  <h2 id="h-text">Text &amp; Inline Semantics</h2>
+  <h3>Heading 3</h3><h4>Heading 4</h4><h5>Heading 5</h5><h6>Heading 6</h6>
+
+  <p id="p-inline">
+    <a href="/inline">link</a>, <abbr title="HyperText Markup Language">HTML</abbr>, <b>bold</b>, <strong>strong</strong>,
+    <i>italic</i>, <em>emphasis</em>, <u>underline</u>, <s>strikethrough</s>, <mark>highlighted</mark>,
+    <small>small print</small>, H<sub>2</sub>O, E=mc<sup>2</sup>, <code>console.log()</code>,
+    <kbd>Ctrl</kbd>+<kbd>C</kbd>, <samp>Segmentation fault</samp>, <var>x</var> = 5,
+    <dfn id="def-scraping">Scraping</dfn> is extracting data from pages,
+    <q cite="https://example.com/quote">an inline quote</q>, <cite>The Pragmatic Programmer</cite>,
+    <time datetime="2026-11-10T14:30:00-07:00" id="time-pub">Nov 10, 2026 2:30 PM</time>,
+    <data value="SKU-8812">Widget Mini</data>,
+    <bdi>إيان</bdi> scored 90, <bdo dir="rtl">reversed text</bdo>,
+    super­cali­fragi<wbr>listic<wbr>expiali<wbr>docious,
+    <span lang="ja"><ruby>漢<rp>(</rp><rt>kan</rt><rp>)</rp>字<rp>(</rp><rt>ji</rt><rp>)</rp></ruby></span>,
+    <del datetime="2026-11-01">$299.99</del> <ins datetime="2026-11-01">$249.99</ins>,
+    line<br>break, <span class="css-only" id="pseudo">Visible:</span>
+  </p>
+
+  <blockquote cite="https://example.com/article" id="bq">
+    <p>Any sufficiently advanced scraper is indistinguishable from a browser.</p>
+    <footer>— <cite>Anonymous Engineer</cite></footer>
+  </blockquote>
+
+  <pre id="pre-block">
+function scrape(url) {
+    return fetch(url)
+        .then(r =&gt; r.text());   // preserved   whitespace
+}</pre>
+
+  <address id="contact-address">
+    Acme Widgets LLC<br>
+    1234 Example Blvd, Suite 500<br>
+    Phoenix, AZ 85001<br>
+    <a href="mailto:contact@example.com">contact@example.com</a> · <a href="tel:+15550100199">(555) 010-0199</a>
+  </address>
+
+  <hr id="divider">
+
+  <p id="entities">Entities: &amp; &lt; &gt; &quot; &#39; &copy; &reg; &trade; &euro; &yen; &nbsp;NBSP&nbsp; &hellip; &mdash; &#x1F600; &#128640;</p>
+  <p id="unicode">Unicode: Ünïcödé — 日本語 — Русский — العربية — עברית — 한국어 — emoji 🧪🕷️🔍 — zero​width​space — combining é</p>
+  <p id="whitespace">   Leading    and   trailing
+      whitespace	with	tabs   </p>
+</section>
+
+<!-- ================================================================ LISTS -->
+<section id="lists" aria-labelledby="h-lists">
+  <h2 id="h-lists">Lists</h2>
+  <ul id="ul-nested">
+    <li>Fruit
+      <ul>
+        <li>Apple</li>
+        <li>Banana
+          <ul><li>Cavendish</li><li>Plantain</li></ul>
+        </li>
+      </ul>
+    </li>
+    <li>Vegetables</li>
+  </ul>
+  <ol id="ol-custom" start="5" reversed type="I">
+    <li>Five</li><li value="10">Ten (explicit value)</li><li>Nine</li>
+  </ol>
+  <dl id="dl-specs">
+    <dt>CPU</dt><dd>8 cores @ 4.2 GHz</dd>
+    <dt>Memory</dt><dd>32 GB</dd><dd>Expandable to 128 GB</dd>
+    <dt>Storage</dt><dt>Disk</dt><dd>2 TB NVMe</dd>
+    <div><dt>Wrapped</dt><dd>dt/dd inside div</dd></div>
+  </dl>
+  <menu id="toolbar"><li><button type="button">Copy</button></li><li><button type="button">Paste</button></li></menu>
+</section>
+
+<!-- ================================================================ PRODUCT CARDS (primary scrape target) -->
+<section id="products" aria-labelledby="h-products">
+  <h2 id="h-products">Product Listing</h2>
+  <div class="grid" id="product-grid">
+    <article class="card product" data-id="1001" data-sku="QW-PRO-001" data-category="widgets" itemscope itemtype="https://schema.org/Product">
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='120'%3E%3Crect width='200' height='120' fill='%23d97757'/%3E%3C/svg%3E" alt="Quantum Widget Pro" width="200" height="120" itemprop="image">
+      <h3 class="product-name" itemprop="name"><a href="/p/1001">Quantum Widget Pro</a></h3>
+      <p class="price" itemprop="offers" itemscope itemtype="https://schema.org/Offer"><span itemprop="price" content="249.99">249.99</span><meta itemprop="priceCurrency" content="USD"></p>
+      <p class="rating" data-rating="4.6" aria-label="4.6 out of 5 stars">★★★★☆ <span class="count">(1,287)</span></p>
+      <p class="stock in-stock">In stock</p>
+      <ul class="tags"><li>new</li><li>bestseller</li></ul>
+    </article>
+    <article class="card product" data-id="1002" data-sku="QW-MINI-002" data-category="widgets">
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='120'%3E%3Crect width='200' height='120' fill='%235a8fd9'/%3E%3C/svg%3E" alt="Widget Mini" width="200" height="120" loading="lazy">
+      <h3 class="product-name"><a href="/p/1002">Widget Mini</a></h3>
+      <p class="price"><del>39.99</del> <span class="sale">29.99</span></p>
+      <p class="rating" data-rating="4.1">★★★★☆ <span class="count">(342)</span></p>
+      <p class="stock low-stock">Only 3 left</p>
+    </article>
+    <article class="card product" data-id="1003" data-sku="GZ-500-003" data-category="gizmos">
+      <img data-src="/img/gizmo-500.jpg" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="Gizmo 500" class="lazyload" width="200" height="120">
+      <h3 class="product-name"><a href="/p/1003">Gizmo 500 — "Deluxe" &amp; Co.</a></h3>
+      <p class="price">1,099.00</p>
+      <p class="rating" data-rating="">No reviews yet</p>
+      <p class="stock out-of-stock">Out of stock</p>
+    </article>
+    <article class="card product" data-id="1004" data-sku="" data-category="gadgets">
+      <picture>
+        <source type="image/avif" srcset="/img/g.avif 1x, /img/g@2x.avif 2x">
+        <source type="image/webp" srcset="/img/g.webp">
+        <img src="/img/g.jpg" srcset="/img/g-400.jpg 400w, /img/g-800.jpg 800w" sizes="(max-width:600px) 400px, 800px" alt="Gadget X">
+      </picture>
+      <h3 class="product-name"><a href="/p/1004">Gadget X</a></h3>
+      <p class="price">0.00</p>
+      <p class="rating" data-rating="5.0">★★★★★ <span class="count">(1)</span></p>
+      <p class="stock">Pre-order</p>
+    </article>
+  </div>
+
+  <nav class="pagination" aria-label="Pagination" id="pagination">
+    <a href="?page=1" rel="prev" class="page">« Prev</a>
+    <a href="?page=1" class="page">1</a>
+    <span class="page current" aria-current="page">2</span>
+    <a href="?page=3" class="page">3</a>
+    <span class="ellipsis">…</span>
+    <a href="?page=42" class="page">42</a>
+    <a href="?page=3" rel="next" class="page">Next »</a>
+  </nav>
+</section>
+
+<!-- ================================================================ TABLES -->
+<section id="tables" aria-labelledby="h-tables">
+  <h2 id="h-tables">Tables</h2>
+  <table id="users-table" class="data-table">
+    <caption>Registered Users</caption>
+    <colgroup><col span="1" style="width:5%"><col span="4"><col style="background:#222"></colgroup>
+    <thead>
+      <tr><th scope="col">ID</th><th scope="col">Name</th><th scope="col">Email</th><th scope="col">Joined</th><th scope="col">Role</th><th scope="col">Balance</th></tr>
+    </thead>
+    <tbody>
+      <tr data-user-id="1"><td>1</td><td>Jane Doe</td><td>jane.doe@example.com</td><td><time datetime="2024-03-15">Mar 15, 2024</time></td><td>admin</td><td>$1,204.50</td></tr>
+      <tr data-user-id="2"><td>2</td><td>John Smith</td><td>john.smith@example.com</td><td><time datetime="2025-01-02">Jan 2, 2025</time></td><td>editor</td><td>$0.00</td></tr>
+      <tr data-user-id="3"><td>3</td><td>María José García-López</td><td>mj.garcia@example.es</td><td><time datetime="2025-07-21">Jul 21, 2025</time></td><td>viewer</td><td>-$15.75</td></tr>
+      <tr data-user-id="4"><td>4</td><td>李小龙</td><td>li@example.cn</td><td><time datetime="2026-02-29">invalid date</time></td><td>viewer</td><td></td></tr>
+      <tr data-user-id="5"><td>5</td><td>O'Brien, Patrick "Pat"</td><td><a href="mailto:pat@example.ie">pat@example.ie</a></td><td>—</td><td>banned</td><td>N/A</td></tr>
+    </tbody>
+    <tfoot><tr><th scope="row" colspan="5">Total</th><td>$1,188.75</td></tr></tfoot>
+  </table>
+
+  <h3>Merged cells (rowspan / colspan)</h3>
+  <table id="merged-table">
+    <thead>
+      <tr><th rowspan="2">Region</th><th colspan="2">Q1</th><th colspan="2">Q2</th></tr>
+      <tr><th>Units</th><th>Revenue</th><th>Units</th><th>Revenue</th></tr>
+    </thead>
+    <tbody>
+      <tr><th scope="row" rowspan="2">West</th><td>120</td><td>$12,000</td><td>140</td><td>$14,000</td></tr>
+      <tr><td colspan="2">Combined: 260 units</td><td>—</td><td>—</td></tr>
+      <tr><th scope="row">East</th><td>95</td><td>$9,500</td><td>110</td><td>$11,000</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Nested table / table without thead</h3>
+  <table id="nested-table">
+    <tr><td>Outer A</td><td>
+      <table class="inner"><tr><td>Inner 1</td><td>Inner 2</td></tr></table>
+    </td></tr>
+    <tr><td>Outer B</td><td>Plain cell</td></tr>
+  </table>
+
+  <h3>Div-based "table" (CSS grid)</h3>
+  <div id="div-table" role="table" aria-label="Orders" style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px">
+    <div role="columnheader">Order</div><div role="columnheader">Status</div><div role="columnheader">Total</div>
+    <div role="cell">#A-1001</div><div role="cell">Shipped</div><div role="cell">$89.10</div>
+    <div role="cell">#A-1002</div><div role="cell">Pending</div><div role="cell">$12.00</div>
+  </div>
+</section>
+
+<!-- ================================================================ ARTICLES / BLOG -->
+<section id="articles" aria-labelledby="h-articles">
+  <h2 id="h-articles">Articles</h2>
+  <article class="post" id="post-1" itemscope itemtype="https://schema.org/BlogPosting">
+    <header>
+      <h3 itemprop="headline"><a href="/blog/how-to-scrape" rel="bookmark">How to Scrape Responsibly</a></h3>
+      <p class="byline">By <span class="author" itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Alex Rivera</span></span>
+        on <time datetime="2026-10-01" itemprop="datePublished">October 1, 2026</time>
+        · <span class="read-time">6 min read</span></p>
+    </header>
+    <p itemprop="description">Respect robots.txt, rate-limit your requests, and identify your user agent.</p>
+    <aside class="pull-quote">"Rate limits are a courtesy, not a challenge."</aside>
+    <footer><ul class="post-tags"><li><a href="/tag/ethics" rel="tag">ethics</a></li><li><a href="/tag/python" rel="tag">python</a></li></ul></footer>
+  </article>
+  <article class="post" id="post-2">
+    <h3><a href="/blog/selectors">CSS vs XPath Selectors</a></h3>
+    <p class="byline">By <span class="author">Sam Chen</span> on <time datetime="2026-09-14">Sep 14, 2026</time></p>
+    <p>A comparison of selector engines.</p>
+    <section class="comments" id="comments-2">
+      <h4>Comments (2)</h4>
+      <article class="comment" data-comment-id="c1"><p class="comment-author">user_99</p><p>Great write-up!</p>
+        <article class="comment reply" data-comment-id="c2" data-parent="c1"><p class="comment-author">Sam Chen</p><p>Thanks!</p></article>
+      </article>
+    </section>
+  </article>
+</section>
+
+<!-- ================================================================ FORMS -->
+<section id="forms" aria-labelledby="h-forms">
+  <h2 id="h-forms">Forms (every input type)</h2>
+  <form id="kitchen-sink-form" action="/submit" method="post" enctype="multipart/form-data" autocomplete="on" novalidate>
+    <input type="hidden" name="csrf_token" value="f3a9c2e1b7d84e6a9c0f1b2d3e4f5a6b">
+    <input type="hidden" name="session_id" value="sess_mock_123456">
+    <fieldset>
+      <legend>Text-like inputs</legend>
+      <label for="f-text">Text <input id="f-text" type="text" name="username" value="jdoe" maxlength="32" required pattern="[a-z0-9_]+"></label>
+      <label for="f-email">Email <input id="f-email" type="email" name="email" value="jane@example.com"></label>
+      <label for="f-pass">Password <input id="f-pass" type="password" name="password" value="hunter2" autocomplete="current-password"></label>
+      <label for="f-tel">Tel <input id="f-tel" type="tel" name="phone" value="555-010-0123"></label>
+      <label for="f-url">URL <input id="f-url" type="url" name="website" value="https://example.com"></label>
+      <label for="f-search">Search <input id="f-search" type="search" name="s" placeholder="Find…"></label>
+      <label for="f-num">Number <input id="f-num" type="number" name="qty" value="3" min="1" max="99" step="1"></label>
+      <label for="f-range">Range <input id="f-range" type="range" name="volume" value="70" min="0" max="100"></label>
+      <label for="f-ro">Readonly <input id="f-ro" type="text" name="readonly_field" value="cannot edit" readonly></label>
+      <label for="f-dis">Disabled <input id="f-dis" type="text" name="disabled_field" value="disabled" disabled></label>
+    </fieldset>
+    <fieldset>
+      <legend>Date / time</legend>
+      <label>Date <input type="date" name="date" value="2026-11-10"></label>
+      <label>Time <input type="time" name="time" value="14:30"></label>
+      <label>Datetime-local <input type="datetime-local" name="dtl" value="2026-11-10T14:30"></label>
+      <label>Month <input type="month" name="month" value="2026-11"></label>
+      <label>Week <input type="week" name="week" value="2026-W46"></label>
+    </fieldset>
+    <fieldset>
+      <legend>Choice inputs</legend>
+      <label><input type="checkbox" name="newsletter" value="yes" checked> Subscribe</label>
+      <label><input type="checkbox" name="terms" value="agree"> Accept terms</label>
+      <label><input type="checkbox" name="interests[]" value="security" checked> Security</label>
+      <label><input type="checkbox" name="interests[]" value="linux" checked> Linux</label>
+      <label><input type="radio" name="plan" value="free"> Free</label>
+      <label><input type="radio" name="plan" value="pro" checked> Pro</label>
+      <label><input type="radio" name="plan" value="team"> Team</label>
+    </fieldset>
+    <fieldset>
+      <legend>Other inputs</legend>
+      <label>Color <input type="color" name="color" value="#d97757"></label>
+      <label>File <input type="file" name="avatar" accept="image/*" multiple></label>
+      <input type="image" name="img_submit" alt="Image submit" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='20'%3E%3Crect width='60' height='20' fill='%23555'/%3E%3C/svg%3E">
+    </fieldset>
+    <fieldset>
+      <legend>Selects, datalist, textarea</legend>
+      <label for="f-country">Country
+        <select id="f-country" name="country">
+          <option value="">-- choose --</option>
+          <optgroup label="North America">
+            <option value="US" selected>United States</option>
+            <option value="CA">Canada</option>
+            <option value="MX" disabled>Mexico (disabled)</option>
+          </optgroup>
+          <optgroup label="Europe">
+            <option value="DE">Germany</option>
+            <option value="FR" label="France (label attr)">Fr</option>
+          </optgroup>
+        </select>
+      </label>
+      <label for="f-multi">Languages (multi)
+        <select id="f-multi" name="langs" multiple size="4">
+          <option value="py" selected>Python</option><option value="rs" selected>Rust</option><option value="js">JavaScript</option><option value="go">Go</option>
+        </select>
+      </label>
+      <label for="f-browser">Browser (datalist) <input id="f-browser" list="browsers" name="browser" value="Firefox"></label>
+      <datalist id="browsers"><option value="Firefox"><option value="Chromium"><option value="Safari"><option value="LibreWolf"></datalist>
+      <label for="f-bio">Bio <textarea id="f-bio" name="bio" rows="4" cols="40" maxlength="500">Multi-line
+default &lt;textarea&gt; value
+with   spaces.</textarea></label>
+    </fieldset>
+    <fieldset>
+      <legend>Output, progress, meter</legend>
+      <input type="number" id="oa" name="oa" value="10"> + <input type="number" id="ob" name="ob" value="5"> =
+      <output name="result" for="oa ob" id="out">15</output>
+      <label>Upload <progress id="prog" max="100" value="64">64%</progress></label>
+      <label>Disk <meter id="meter" min="0" max="100" low="30" high="80" optimum="20" value="85">85%</meter></label>
+    </fieldset>
+    <button type="submit" name="action" value="save">Save</button>
+    <button type="reset">Reset</button>
+    <button type="button" id="js-btn" onclick="document.getElementById('js-btn-out').textContent='clicked'">JS Button</button>
+    <span id="js-btn-out"></span>
+    <input type="submit" value="Input Submit">
+    <input type="reset" value="Input Reset">
+    <input type="button" value="Input Button">
+  </form>
+
+  <form id="login-form" action="https://example.com/login" method="post">
+    <h3>Login (GET-redirect test form)</h3>
+    <input type="hidden" name="next" value="/dashboard">
+    <label>User <input name="user" autocomplete="username"></label>
+    <label>Pass <input name="pass" type="password" autocomplete="current-password"></label>
+    <input type="text" name="website_url" class="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <button>Log in</button>
+  </form>
+</section>
+
+<!-- ================================================================ MEDIA / EMBEDDED -->
+<section id="media" aria-labelledby="h-media">
+  <h2 id="h-media">Media &amp; Embedded Content</h2>
+  <figure id="fig-1">
+    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='150'%3E%3Crect width='300' height='150' fill='%232e2e2e'/%3E%3Ctext x='150' y='80' fill='%23e8e6e3' font-size='18' text-anchor='middle'%3EFigure 1%3C/text%3E%3C/svg%3E" alt="Placeholder chart" title="Image title attr" usemap="#shapes-map" width="300" height="150">
+    <figcaption>Figure 1: Image with an image map.</figcaption>
+  </figure>
+  <map name="shapes-map" id="shapes-map">
+    <area shape="rect" coords="0,0,150,150" href="/left" alt="Left half">
+    <area shape="circle" coords="225,75,40" href="/circle" alt="Circle">
+    <area shape="poly" coords="160,10,290,10,290,40" href="/poly" alt="Triangle">
+  </map>
+
+  <img src="/does-not-exist.png" alt="Broken image" id="broken-img">
+  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==" alt="" id="decorative-img" role="presentation">
+
+  <audio id="audio-1" controls preload="none">
+    <source src="/media/sample.ogg" type="audio/ogg">
+    <source src="/media/sample.mp3" type="audio/mpeg">
+    Your browser does not support audio.
+  </audio>
+
+  <video id="video-1" controls width="320" height="180" poster="/media/poster.jpg" preload="none" muted playsinline>
+    <source src="/media/sample.webm" type="video/webm">
+    <source src="/media/sample.mp4" type="video/mp4">
+    <track kind="subtitles" src="/media/en.vtt" srclang="en" label="English" default>
+    <track kind="captions" src="/media/es.vtt" srclang="es" label="Español">
+    Fallback text: video unsupported.
+  </video>
+
+  <canvas id="canvas-1" width="200" height="60" aria-label="Canvas with drawn text">Canvas fallback content</canvas>
+
+  <svg id="inline-svg" width="200" height="60" viewBox="0 0 200 60" role="img" aria-labelledby="svg-title">
+    <title id="svg-title">Inline SVG Bar Chart</title>
+    <desc>Three bars: 20, 40, 30</desc>
+    <rect x="10" y="40" width="40" height="20" fill="#d97757" data-value="20"/>
+    <rect x="70" y="20" width="40" height="40" fill="#5a8fd9" data-value="40"/>
+    <rect x="130" y="30" width="40" height="30" fill="#7ac27a" data-value="30"/>
+    <text x="100" y="12" fill="#e8e6e3" font-size="10" text-anchor="middle">SVG text node</text>
+    <a href="/svg-link"><text x="10" y="12" fill="#d97757" font-size="10">svg link</text></a>
+  </svg>
+
+  <math id="mathml" display="block">
+    <mrow><mi>x</mi><mo>=</mo><mfrac><mrow><mo>−</mo><mi>b</mi><mo>±</mo><msqrt><msup><mi>b</mi><mn>2</mn></msup><mo>−</mo><mn>4</mn><mi>a</mi><mi>c</mi></msqrt></mrow><mrow><mn>2</mn><mi>a</mi></mrow></mfrac></mrow>
+  </math>
+
+  <h3>iframe (srcdoc — content lives in a separate document)</h3>
+  <iframe id="iframe-1" title="Embedded frame" width="100%" height="90" sandbox="allow-scripts"
+    srcdoc="&lt;html&gt;&lt;body style='font-family:sans-serif;background:#1c1c1c;color:#e8e6e3'&gt;&lt;p id='iframe-secret'&gt;IFRAME_ONLY_TEXT: price $77.77&lt;/p&gt;&lt;a href='/inside-iframe'&gt;iframe link&lt;/a&gt;&lt;/body&gt;&lt;/html&gt;"></iframe>
+  <iframe id="iframe-2" title="External frame" src="about:blank" loading="lazy" width="0" height="0" hidden></iframe>
+
+  <object id="object-1" data="/media/doc.pdf" type="application/pdf" width="1" height="1"><p>Object fallback: <a href="/media/doc.pdf">download PDF</a></p></object>
+  <embed id="embed-1" src="/media/legacy.swf" type="application/x-shockwave-flash" width="1" height="1">
+</section>
+
+<!-- ================================================================ INTERACTIVE -->
+<section id="interactive" aria-labelledby="h-interactive">
+  <h2 id="h-interactive">Interactive Elements</h2>
+  <details id="faq-1">
+    <summary>What is collapsed content?</summary>
+    <p>Text inside a closed &lt;details&gt; — present in DOM, not visible.</p>
+  </details>
+  <details id="faq-2" open>
+    <summary>Open by default</summary>
+    <p>This one is expanded.</p>
+  </details>
+  <dialog id="modal-1">
+    <form method="dialog"><p>DIALOG_HIDDEN_TEXT: promo code SAVE20</p><button>Close</button></form>
+  </dialog>
+  <button type="button" onclick="document.getElementById('modal-1').showModal()">Open dialog</button>
+  <p contenteditable="true" id="editable">This paragraph is contenteditable.</p>
+  <p><span title="Tooltip text only in title attribute" id="tooltip">Hover me</span></p>
+  <div id="tabs" role="tablist">
+    <button role="tab" aria-selected="true" aria-controls="tab-a">Tab A</button>
+    <button role="tab" aria-selected="false" aria-controls="tab-b">Tab B</button>
+  </div>
+  <div id="tab-a" role="tabpanel">Tab A content (visible)</div>
+  <div id="tab-b" role="tabpanel" hidden>Tab B content (hidden attr)</div>
+</section>
+
+<!-- ================================================================ SCRAPER EDGE CASES -->
+<section id="edge-cases" aria-labelledby="h-edge">
+  <h2 id="h-edge">Scraper Edge Cases</h2>
+
+  <h3>Hidden content variants</h3>
+  <div id="hidden-variants">
+    <p hidden data-hidden="attr">HIDDEN_ATTR_TEXT</p>
+    <p class="display-none" data-hidden="display">DISPLAY_NONE_TEXT</p>
+    <p style="visibility:hidden" data-hidden="visibility">VISIBILITY_HIDDEN_TEXT</p>
+    <p style="opacity:0" data-hidden="opacity">OPACITY_ZERO_TEXT</p>
+    <p class="visually-hidden" data-hidden="sr-only">SCREEN_READER_ONLY_TEXT</p>
+    <p class="offscreen" data-hidden="offscreen">OFFSCREEN_TEXT</p>
+    <p aria-hidden="true" data-hidden="aria">ARIA_HIDDEN_TEXT</p>
+    <p style="font-size:0" data-hidden="fontsize">FONT_SIZE_ZERO_TEXT</p>
+    <p style="color:#141414" data-hidden="color">SAME_COLOR_AS_BG_TEXT</p>
+  </div>
+
+  <h3>Honeypot links (bot traps)</h3>
+  <a href="/trap/do-not-follow" class="honeypot" rel="nofollow">Honeypot link</a>
+  <a href="/trap/zero-size" style="display:inline-block;width:0;height:0;overflow:hidden">zero</a>
+
+  <h3>Comments &amp; template</h3>
+  <!-- COMMENT_DATA: api_key=mock_key_not_real_0000; internal endpoint=/api/v2/internal -->
+  <template id="row-template">
+    <tr class="tpl-row"><td class="tpl-name">TEMPLATE_ONLY_TEXT</td><td class="tpl-val">0</td></tr>
+  </template>
+  <noscript><p id="noscript-msg">NOSCRIPT_TEXT: enable JavaScript for full content.</p></noscript>
+
+  <h3>Duplicate IDs / weird attributes</h3>
+  <p id="dup">First element with id="dup"</p>
+  <p id="dup">Second element with id="dup"</p>
+  <p id="with space">ID containing a space</p>
+  <p id="123numeric">ID starting with a digit</p>
+  <p class="  multiple   spaced-classes   CamelCase  ">Weird class spacing</p>
+  <p data-json='{"a":1,"b":[2,3],"c":"quote\"inside"}' id="data-json">data-* containing JSON</p>
+  <p DATA-UPPER="Uppercase attr" ID="upper-attr">Uppercase attribute names</p>
+  <p data-empty="" data-bool id="empty-attrs">Empty &amp; boolean data attributes</p>
+
+  <h3>Dynamically rendered (JS)</h3>
+  <div id="js-rendered" class="js-only" data-state="loading">Loading…</div>
+  <div id="delayed-render" data-state="loading">Waiting 1.5s…</div>
+  <ul id="infinite-list" aria-live="polite"></ul>
+  <button type="button" id="load-more">Load more</button>
+  <div id="ajax-sim" data-endpoint="/api/items?page=1">AJAX placeholder</div>
+
+  <h3>Shadow DOM</h3>
+  <user-card id="shadow-host" data-user="Jane Doe" data-email="jane@example.com"></user-card>
+  <div id="closed-shadow-host"></div>
+
+  <h3>Declarative Shadow DOM</h3>
+  <div id="dsd-host">
+    <template shadowrootmode="open">
+      <p part="dsd-text">DECLARATIVE_SHADOW_TEXT <slot name="extra"></slot></p>
+    </template>
+    <span slot="extra">slotted light-DOM text</span>
+  </div>
+
+  <h3>Malformed-ish markup (parser recovery)</h3>
+  <div id="malformed">
+    <p>Unclosed paragraph
+    <p>Another unclosed <b>bold <i>overlap</b> italic</i>
+    <span>Unclosed span
+  </div>
+  <div id="after-malformed">After malformed block</div>
+
+  <h3>Long / repeated content</h3>
+  <div id="repeated">
+    <span class="item" data-n="1">Item 1</span><span class="item" data-n="2">Item 2</span><span class="item" data-n="3">Item 3</span><span class="item" data-n="4">Item 4</span><span class="item" data-n="5">Item 5</span>
+  </div>
+
+  <h3>Contact info in prose (regex extraction)</h3>
+  <p id="contact-prose">Reach support at support@example.com or billing [at] example [dot] com.
+    Call (555) 010-0142, +1 555.010.0143, or 555-010-0144 ext. 22. IP: 192.0.2.10, 2001:db8::1.
+    BTC: bc1qexampleaddr0000000000000000. Price range $1,299.00–$1,499.99. ZIP 85340.</p>
+</section>
+
+<!-- ================================================================ GENERIC CONTAINERS -->
+<section id="containers" aria-labelledby="h-containers">
+  <h2 id="h-containers">Sectioning &amp; Generic Containers</h2>
+  <aside id="sidebar" role="complementary">
+    <h3>Sidebar</h3>
+    <p>Ads, related links, etc.</p>
+    <div class="ad" data-ad-slot="sidebar-1">Sponsored: Buy Widgets</div>
+  </aside>
+  <div class="wrapper"><div class="wrapper"><div class="wrapper"><span class="deep" id="deep-nested">Deeply nested text (depth 3)</span></div></div></div>
+</section>
+
+</main>
+
+<!-- ================================================================ FOOTER -->
+<footer id="site-footer" role="contentinfo">
+  <nav aria-label="Footer">
+    <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/sitemap.xml">Sitemap</a> · <a href="/robots.txt">robots.txt</a>
+  </nav>
+  <p><small>&copy; 2026 Acme Widgets LLC. All rights reserved. Fixture data is fictional.</small></p>
+  <p><a href="#top">Back to top</a></p>
+</footer>
+
+<script>
+(() => {
+  // Immediate JS render
+  const js = document.getElementById('js-rendered');
+  js.dataset.state = 'ready';
+  js.innerHTML = '<p class="rendered">JS_RENDERED_TEXT: <span class="price">59.95</span></p>';
+
+  // Delayed render (tests waiting strategies)
+  setTimeout(() => {
+    const d = document.getElementById('delayed-render');
+    d.dataset.state = 'ready';
+    d.innerHTML = '<p class="rendered">DELAYED_TEXT after 1500ms</p>';
+  }, 1500);
+
+  // Infinite list / load more
+  const list = document.getElementById('infinite-list');
+  let n = 0;
+  const addItems = (count) => {
+    for (let i = 0; i < count; i++) {
+      n++;
+      const li = document.createElement('li');
+      li.className = 'feed-item';
+      li.dataset.index = n;
+      li.textContent = `Feed item #${n} — ${new Date(Date.UTC(2026, 10, 10, 0, n)).toISOString()}`;
+      list.appendChild(li);
+    }
+    if (n >= 50) document.getElementById('load-more').disabled = true;
+  };
+  addItems(10);
+  document.getElementById('load-more').addEventListener('click', () => addItems(10));
+  window.addEventListener('scroll', () => {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 50 && n < 50) addItems(5);
+  });
+
+  // Simulated AJAX (no network)
+  setTimeout(() => {
+    const items = [{ id: 'x1', name: 'Ajax Alpha', price: 10 }, { id: 'x2', name: 'Ajax Beta', price: 20 }];
+    document.getElementById('ajax-sim').innerHTML =
+      items.map(i => `<div class="ajax-item" data-id="${i.id}"><span class="name">${i.name}</span> <span class="price">${i.price}.00</span></div>`).join('');
+  }, 800);
+
+  // Open shadow DOM custom element
+  class UserCard extends HTMLElement {
+    connectedCallback() {
+      const root = this.attachShadow({ mode: 'open' });
+      root.innerHTML = `<style>p{margin:0}</style>
+        <div class="card"><p class="name">SHADOW_OPEN: ${this.dataset.user}</p><p class="email">${this.dataset.email}</p><slot></slot></div>`;
+    }
+  }
+  customElements.define('user-card', UserCard);
+
+  // Closed shadow root (inaccessible via element.shadowRoot)
+  document.getElementById('closed-shadow-host')
+    .attachShadow({ mode: 'closed' }).innerHTML = '<p>SHADOW_CLOSED_TEXT</p>';
+
+  // Canvas text (not in DOM)
+  const ctx = document.getElementById('canvas-1').getContext('2d');
+  ctx.fillStyle = '#e8e6e3'; ctx.font = '16px sans-serif'; ctx.fillText('CANVAS_ONLY_TEXT', 10, 35);
+
+  // Use template
+  const tpl = document.getElementById('row-template');
+  const row = tpl.content.cloneNode(true);
+  row.querySelector('.tpl-name').textContent = 'Cloned from template';
+  row.querySelector('.tpl-val').textContent = '99';
+  document.querySelector('#users-table tbody').appendChild(row);
+
+  // Live output calc
+  const calc = () => document.getElementById('out').value = (+document.getElementById('oa').value) + (+document.getElementById('ob').value);
+  ['oa', 'ob'].forEach(id => document.getElementById(id).addEventListener('input', calc));
+})();
+</script>
+</body>
+</html>

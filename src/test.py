@@ -1,5 +1,6 @@
-from write import extracted
+import validation
 
 
 def main():
-    print(extracted("test", "Meow"))
+    print(validation.clean_domain("0.0.0.0:8743"))
+    print(validation.clean_domain("www.python.org"))
