@@ -4,20 +4,20 @@ version = "0.1.0"
 description = "Final python group project and presentation for CSPC 118, 2026."
 readme = "README.md"
 authors = [
-    { name = "MysticalMike60t", email = "121118774+MysticalMike60t@users.noreply.github.com" }
+    { name = "MysticalMike60t", email = "121118774+MysticalMike60t@users.noreply.github.com" },
 ]
 requires-python = ">=3.14"
-dependencies = [
-    "brotli>=1.2.0",
-    "bs4>=0.0.2",
-    "http-client>=0.1.22",
-    "logging>=0.4.9.6",
-    "lxml>=6.1.3",
-    "rich>=15.0.0",
-]
+dependencies = ["brotli>=1.2.0", "lxml>=6.1.3", "rich>=15.0.0", "bs4>=0.0.2"]
 
 [project.scripts]
 playfetch = "main:main"
+playfetch-test = "test:main"
+
+[dependency-groups]
+dev = ["pyinstaller"]
+
+# [tool.uv.sources]
+# playfetchlib = { path = "./playfetchlib" }
 
 [build-system]
 requires = ["hatchling"]

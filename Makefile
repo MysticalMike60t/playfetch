@@ -1,30 +1,34 @@
-name := playfetch
-entry := src/main.py
-specs_folder := ./specs
-output_dir := ./out
-dist_dir := dist
-dev_dir := dev
-pyinstaller_build_cmd := uv run --with pyinstaller pyinstaller --clean --distpath ${output_dir}/${dist_dir} --workpath ${output_dir}/${build_dir}
+name        := playfetch
+specs_dir   := ./specs
+out_dir     := ./out
+rust_pkg    := playfetchlib
 
-.PHONY: default build dev clean clean_dev
+dist_out    := $(out_dir)/dist
+dist_work   := $(out_dir)/build/dist
+dev_out     := $(out_dir)/dev
+dev_work    := $(out_dir)/build/dev
+
+pyinstaller := uv run pyinstaller --clean --noconfirm
 
 .DELETE_ON_ERROR:
-default: clean build_dist
+.PHONY: default build dev rust rust-force clean clean_dev
 
-.DELETE_ON_ERROR:
-build: build_dist
+default: clean build
 
-build_dist:
-	${pyinstaller_build_cmd} ${specs_folder}/dist.spec
+build: rust
+	$(pyinstaller) --distpath $(dist_out) --workpath $(dist_work) $(specs_dir)/dist.spec
 
-dev: clean_dev build_dev
+dev: clean_dev rust
+	$(pyinstaller) --distpath $(dev_out) --workpath $(dev_work) $(specs_dir)/dev.spec
 
-build_dev:
-	${pyinstaller_build_cmd} ${specs_folder}/dev.spec
+rust:
+	uv sync
+
+rust-force:
+	uv sync --reinstall-package $(rust_pkg)
 
 clean:
-	rm -rf ${output_dir}/${build_dir} ${output_dir}/${dist_dir}
+	rm -rf $(out_dir)
 
 clean_dev:
-	dir="${output_dir}/${build_dir}/dev"
-	rm -rf "$${dir}"
+	rm -rf $(dev_out) $(dev_work)

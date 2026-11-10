@@ -1,6 +1,7 @@
 import os
 import random
 import sys
+from logging import Formatter
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -13,6 +14,10 @@ CONFIG: SimpleNamespace = SimpleNamespace(  # Add type defs
     paths=SimpleNamespace(
         bin=Path(_binary),
         build=Path(f"{_working_dir}/out/build"),
-        logs=Path(f"{_working_dir}/logs"),
+        logs=Path(f"{_working_dir}/.logs"),
+        tmp=Path(f"{_working_dir}/.tmp"),
+    ),
+    logs=SimpleNamespace(
+        format=Formatter("%(asctime)s %(levelname)s: %(message)s", "%H:%M:%S")
     ),
 )
