@@ -10,6 +10,6 @@ EMAIL_RE = re.compile(
     re.IGNORECASE,
 )
 
-IPV4_ADDR_RE = re.compile(r"^(?:0|10)\.\d{1,3}\.\d{1,3}\.\d{1,3}:")
+IPV4_ADDR_RE = re.compile(r"^(?:0|10)\.\d{1,3}\.\d{1,3}\.\d{1,3}")
 
-SUBDOMAIN_WWW_RE = re.compile(r"(.*?)\.(.*)")
+SUBDOMAIN_WWW_RE = re.compile(r"(.*?)\:(.*)")
