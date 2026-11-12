@@ -1,31 +1,37 @@
 name        := playfetch
 specs_dir   := ./specs
 out_dir     := ./out
-rust_pkg    := playfetchlib
 
 dist_out    := $(out_dir)/dist
 dist_work   := $(out_dir)/build/dist
 dev_out     := $(out_dir)/dev
 dev_work    := $(out_dir)/build/dev
 
+out_binary  := $(dist_out)/$(name)
+out_hash1   := $(dist_out)/SHA1SUMS
+out_hash256 := $(dist_out)/SHA256SUMS
+
 pyinstaller := uv run pyinstaller --clean --noconfirm
 
 .DELETE_ON_ERROR:
-.PHONY: default build dev rust rust-force clean clean_dev
+.PHONY: dev clean clean_dev hash
 
-default: clean build
+_ := $(shell mkdir -p $(dist_out))
+_ := $(shell mkdir -p $(dist_work))
 
-build: rust
+$(out_binary): $(specs_dir) $(dist_work) $(dist_out) clean
 	$(pyinstaller) --distpath $(dist_out) --workpath $(dist_work) $(specs_dir)/dist.spec
 
-dev: clean_dev rust
+hash: $(out_hash1) $(out_hash256)
+
+$(out_hash1): $(dist_out) $(out_binary)
+	cd $(dist_out) && sha1sum $(notdir $(out_binary)) > $(notdir $@) && sha1sum -c $(notdir $@)
+
+$(out_hash256): $(dist_out) $(out_binary)
+	cd $(dist_out) && sha256sum $(notdir $(out_binary)) > $(notdir $@) && sha256sum -c $(notdir $@)
+
+dev: clean_dev
 	$(pyinstaller) --distpath $(dev_out) --workpath $(dev_work) $(specs_dir)/dev.spec
-
-rust:
-	uv sync
-
-rust-force:
-	uv sync --reinstall-package $(rust_pkg)
 
 clean:
 	rm -rf $(out_dir)

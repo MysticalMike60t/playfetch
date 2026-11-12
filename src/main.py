@@ -15,6 +15,7 @@ import os_handles
 import scrape
 import search
 import tui
+from config import Theme
 from validation import clean_for_path
 
 # IDEA: Gets ALL information useful to OSINT. Not just from a single platform, and also
@@ -34,25 +35,26 @@ from validation import clean_for_path
 def init_head():
     tui.tclear()
     ascii_art = text2art("PlayFetch", "alligator3")
-    q.print(f"{ascii_art}", style=f"fg:{config.Theme.accent_hex}")
-    q.print(f"{config.__version_tag__}\n", style=f"fg:{config.Theme.text_muted}")
-    q.print("By: Caden Finkelstein", style=f"fg:{config.Theme.accent_dark_hex}")
+    q.print(f"{ascii_art}", style=f"fg:{Theme.accent_hex}")
+    q.print(f"{config.__version_tag__}\n", style=f"fg:{Theme.text_muted}")
+    q.print("By: Caden Finkelstein", style=f"fg:{Theme.accent_dark_hex}")
     q.print(
-        "\nThis is in early alpha development, and has a lot of issues.",
-        style=f"bold fg:{config.Theme.status_fg} bg:{config.Theme.status_bg}",
+        "\nSTATUS\tThis is in early alpha development, and has a lot of issues.",
+        style=f"bold fg:{Theme.status_fg} bg:{Theme.status_bg}",
     )
     tui.cseperator()
+    q.print(
+        "WARNING\tOnly email search type is implemented. Others just search via query with no analysis.",
+        f"fg:{Theme.warning_fg}",
+    )
     print()
 
 
 def handle_search():
-    q.print(
-        "Only email is implemented. Others just search via query with no analysis.",
-        f"fg:{config.Theme.warning_fg}",
-    )
-    search_type: str = q.select(
+    search_type: str = tui.qselect(
         "Select search type:",
         choices=[
+            "Any",
             "Email",
             "Username",
             "Name",
@@ -60,24 +62,33 @@ def handle_search():
             "Domain",
             "Quit",
         ],
-    ).ask()
+    )
     if search_type == "Quit":
         os_handles.quit(0)
-    search_filter: str = q.text(f"Enter the {search_type.lower()}:").ask()
+    match search_type:
+        case "Email":
+            search_filter: str = q.text(f"Enter the {search_type.lower()}:").ask()
+            results = search.ddg(search_filter, type="email", n=20)
+        case "Any":
+            search_filter: str = q.text(f"Enter search query:").ask()
+            results = search.ddg(search_filter, type="any", n=20)
+        case _:
+            search_filter: str = ""  # To shut up the errors
+            os_handles.quit(0)
     timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
     dump_path = f"{config.Paths.cwd}/{timestamp}_{clean_for_path(search_filter)}"
     if not os.path.exists(dump_path):
         os.mkdir(dump_path)
     # q.print(
     #     f"Current working directory (after switching to dump_path): {config.Paths.cwd}",
-    #     f"fg:{config.Theme.debug_fg}",
+    #     f"fg:{Theme.debug_fg}",
     # )
     config.Paths.cwd = f"{dump_path}"
     config.Paths.datafile = (
         f"{dump_path}/{random.randrange(100000, 999999)}_{search_filter}"
     )
     # q.print(
-    #     f"Current datafile path: {config.Paths.datafile}", f"fg:{config.Theme.debug_fg}"
+    #     f"Current datafile path: {config.Paths.datafile}", f"fg:{Theme.debug_fg}"
     # )
     with open(config.Paths.datafile, "a") as datafile:
         datafile.writelines(
@@ -86,28 +97,44 @@ def handle_search():
                 f"Filter (search query): {search_filter}\n",
             ]
         )
-        # q.print("Done writing inputs to datafile", f"fg:{config.Theme.debug_fg}")
-    # q.print("Starting search", f"fg:{config.Theme.debug_fg}")
+        # q.print("Done writing inputs to datafile", f"fg:{Theme.debug_fg}")
+    # q.print("Starting search", f"fg:{Theme.debug_fg}")
+    q.print(
+        "You may get rate-limited, which will fail to return any results.",
+        style=f"fg:{Theme.warning_fg}",
+    )
     if q.confirm(f"Search duckduckgo for {search_filter}?").ask():
         tui.cseperator()
-        results = search.ddg(search_filter, type="email", n=20)
+        match search_type:
+            case "Any":
+                results: list[str] = search.ddg(search_filter, type="Any", n=20)
+            case "Email":
+                results: list[str] = search.ddg(search_filter, type="email", n=20)
+            case _:
+                results: list[str] = []
+                q.print("No search type selection made.", f"fg:{Theme.error_fg}")
 
     else:
         return
     with open(config.Paths.datafile, "a") as datafile:
         for url in results:
             datafile.writelines(f"{url}\n")
-            q.print(f">\t{url}", f"italic fg:{config.Theme.output_fg}")
-    # q.print("Done searching", f"fg:{config.Theme.debug_fg}")
+            q.print(f">\t{url}", f"italic fg:{Theme.output_fg}")
+    # q.print("Done searching", f"fg:{Theme.debug_fg}")
     if q.confirm("Scrape these pages for data?").ask():
-        match q.select("Search For:", ["Emails"]).ask():
+        match q.select(
+            "Search For:",
+            ["Emails"],
+            style=Theme.Questionary,
+            pointer=Theme.questionary_select_pointer,
+        ).ask():
             case "Emails":
                 for result in results:
-                    q.print(f"Scraping {result}\n", f"fg:{config.Theme.info_fg}")
+                    q.print(f"Scraping {result}", f"fg:{Theme.info_fg}")
                     html = scrape.pull(result)
                     analyze.emails(html)
             case _:
-                q.print("No selection made.", f"fg:{config.Theme.error_fg}")
+                q.print("No selection made.", f"fg:{Theme.error_fg}")
 
 
 def main() -> int:
@@ -117,12 +144,12 @@ def main() -> int:
             os.mkdir(config.Paths.datadump)
         config.Paths.cwd = f"{config.Paths.datadump}"
         # q.print(
-        #     f"Current working directory: {config.Paths.cwd}", f"fg:{config.Theme.debug_fg}"
+        #     f"Current working directory: {config.Paths.cwd}", f"fg:{Theme.debug_fg}"
         # )
         handle_search()
         if not q.confirm("Go back?").ask():
             break
-    # q.print("Done", f"fg:{config.Theme.debug_fg}")
+    # q.print("Done", f"fg:{Theme.debug_fg}")
 
     # inputs = {"domain": input("Domain: "), "path": input("Path (without first '/'): ")}
     # config.Paths.cwd = f"{config.Paths.datadump}"

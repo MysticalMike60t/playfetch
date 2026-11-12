@@ -4,9 +4,18 @@ from ddgs import DDGS
 import config
 
 
-def ddg(query: str, type: str = "", n: int = 10) -> list[str]:
+def ddg(query: str, type: str = "any", n: int = 10) -> list[str]:
     match type.lower():
         case "email":
+            try:
+                results = DDGS().text(query, max_results=n)
+            except Exception as e:
+                q.print(f"Search failed: {e}", f"fg:{config.Theme.error_fg}")
+                return []
+            for result in results:
+                print(result["text"])
+            return [r["href"] for r in results]
+        case "any":
             try:
                 results = DDGS().text(query, max_results=n)
             except Exception as e:

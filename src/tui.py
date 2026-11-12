@@ -3,7 +3,7 @@ import subprocess
 
 import questionary as q
 
-import config
+from config import Instances, Theme
 
 
 def tclear():
@@ -17,7 +17,16 @@ def seperator(symbol: str = "-"):
 
 
 def cseperator(symbol: str = "-"):
-
     twidth = os.get_terminal_size()[0]
     ending = "\n" if (len(symbol) % twidth) else ""
-    q.print(symbol * twidth, end=ending, style=f"fg:{config.Theme.accent_muted_hex}")
+    q.print(symbol * twidth, end=ending, style=f"fg:{Theme.accent_muted_hex}")
+
+
+def qselect(message: str, choices: list[str]) -> str:
+    return q.select(
+        message,
+        choices=choices,
+        style=Theme.Questionary,
+        pointer=Theme.questionary_select_pointer,
+        instruction="(Use Arrow Keys)",
+    ).ask()

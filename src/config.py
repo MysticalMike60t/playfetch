@@ -1,6 +1,9 @@
 from dataclasses import dataclass, field
 from importlib.metadata import PackageNotFoundError, version
 
+import questionary as q
+from blessed import Terminal
+
 import os_handles
 
 try:
@@ -34,3 +37,31 @@ class Theme:
     success_fg: str = "#65FC6A"
     output_fg: str = "#65FCF9"
     text_muted: str = "#313131"
+    questionary_select_pointer: str = "►"
+    Questionary: q.Style = q.Style(
+        [
+            ("qmark", f"fg:{accent_hex}"),
+            ("question", "bold"),
+            ("answer", f"fg:{accent_hex} bold"),
+            (
+                "pointer",
+                f"fg:{accent_hex} bold",
+            ),
+            (
+                "highlighted",
+                f"fg:{accent_hex} bold",
+            ),
+            ("selected", "fg:#cc5454"),
+            ("separator", "fg:#cc5454"),
+            ("instruction", ""),
+            ("text", ""),
+            (
+                "disabled",
+                f"fg:{text_muted} italic",
+            ),
+        ]
+    )
+
+
+class Instances:
+    term: Terminal = Terminal()
