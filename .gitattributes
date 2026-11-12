@@ -1,0 +1,18 @@
+[attr]image        -text -linguist-detectable linguist-generated
+[attr]donotcredit  -linguist-detectable
+
+*.jpg              image
+*.png              image
+*.bmp              image
+*.ico              image
+*.icns             image
+
+*.html             donotcredit
+*.css              donotcredit
+*.md               donotcredit
+*.lock             donotcredit
+LICENSE            donotcredit
+.zed/*             donotcredit
+.github/*          donotcredit
+*.spec             donotcredit
+specs/*            donotcredit
