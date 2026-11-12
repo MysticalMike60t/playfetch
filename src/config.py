@@ -1,6 +1,15 @@
 from dataclasses import dataclass, field
+from importlib.metadata import PackageNotFoundError, version
 
 import os_handles
+
+try:
+    __version_raw__ = version("playfetch").removeprefix("v")
+    __version__ = __version_raw__  # Only included in case it is needed
+    __version_tag__ = f"v{__version_raw__}"
+    __version_title__ = f"Release Build {__version_tag__}"
+except PackageNotFoundError:
+    __version__ = "x.x.x+unknown"
 
 
 @dataclass

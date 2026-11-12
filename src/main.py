@@ -1,5 +1,3 @@
-__version__ = "2026.11.12.1"
-
 import os
 import random
 import subprocess
@@ -37,7 +35,7 @@ def init_head():
     tui.tclear()
     ascii_art = text2art("PlayFetch", "alligator3")
     q.print(f"{ascii_art}", style=f"fg:{config.Theme.accent_hex}")
-    q.print(f"{__version__}\n", style=f"fg:{config.Theme.text_muted}")
+    q.print(f"{config.__version_tag__}\n", style=f"fg:{config.Theme.text_muted}")
     q.print("By: Caden Finkelstein", style=f"fg:{config.Theme.accent_dark_hex}")
     q.print(
         "\nThis is in early alpha development, and has a lot of issues.",
@@ -92,7 +90,7 @@ def handle_search():
     # q.print("Starting search", f"fg:{config.Theme.debug_fg}")
     if q.confirm(f"Search duckduckgo for {search_filter}?").ask():
         tui.cseperator()
-        results = search.ddg(search_filter, type="email")
+        results = search.ddg(search_filter, type="email", n=20)
 
     else:
         return
@@ -101,9 +99,9 @@ def handle_search():
             datafile.writelines(f"{url}\n")
             q.print(f">\t{url}", f"italic fg:{config.Theme.output_fg}")
     # q.print("Done searching", f"fg:{config.Theme.debug_fg}")
-    if q.confirm("Scrape these sites for data?").ask():
-        match q.select("Search Type:", ["Email"]).ask():
-            case "Email":
+    if q.confirm("Scrape these pages for data?").ask():
+        match q.select("Search For:", ["Emails"]).ask():
+            case "Emails":
                 for result in results:
                     q.print(f"Scraping {result}\n", f"fg:{config.Theme.info_fg}")
                     html = scrape.pull(result)
