@@ -1,18 +1,15 @@
-[attr]image        -text -linguist-detectable linguist-generated
-[attr]donotcredit  -linguist-detectable linguist-generated
+*.jpg              -text linguist-detectable=false
+*.png              -text linguist-detectable=false
+*.bmp              -text linguist-detectable=false
+*.ico              -text linguist-detectable=false
+*.icns             -text linguist-detectable=false
 
-*.jpg              image
-*.png              image
-*.bmp              image
-*.ico              image
-*.icns             image
-
-*.html             donotcredit
-*.css              donotcredit
-*.md               donotcredit
-*.lock             donotcredit
-LICENSE            donotcredit
-.zed/*             donotcredit
-.github/*          donotcredit
-*.spec             donotcredit
-specs/*            donotcredit
+*.html             linguist-detectable=false
+*.css              linguist-detectable=false
+*.md               linguist-detectable=false
+*.lock             linguist-detectable=false
+LICENSE            linguist-detectable=false
+.zed/*             linguist-detectable=false
+.github/*          linguist-detectable=false
+*.spec             linguist-detectable=false
+specs/*            linguist-detectable=false
