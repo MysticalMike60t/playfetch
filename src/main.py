@@ -14,6 +14,7 @@ from bs4 import BeautifulSoup
 import analyze
 import config
 import os_handles
+import scrape
 import search
 import tui
 from validation import clean_for_path
@@ -47,6 +48,10 @@ def init_head():
 
 
 def handle_search():
+    q.print(
+        "Only email is implemented. Others just search via query with no analysis.",
+        f"fg:{config.Theme.warning_fg}",
+    )
     search_type: str = q.select(
         "Select search type:",
         choices=[
@@ -88,17 +93,23 @@ def handle_search():
     if q.confirm(f"Search duckduckgo for {search_filter}?").ask():
         tui.cseperator()
         results = search.ddg(search_filter, type="email")
+
     else:
         return
-    if not results:
-        q.print(
-            "No results (likely blocked/rate-limited)", f"fg:{config.Theme.error_fg}"
-        )
     with open(config.Paths.datafile, "a") as datafile:
         for url in results:
             datafile.writelines(f"{url}\n")
             q.print(f">\t{url}", f"italic fg:{config.Theme.output_fg}")
     # q.print("Done searching", f"fg:{config.Theme.debug_fg}")
+    if q.confirm("Scrape these sites for data?").ask():
+        match q.select("Search Type:", ["Email"]).ask():
+            case "Email":
+                for result in results:
+                    q.print(f"Scraping {result}\n", f"fg:{config.Theme.info_fg}")
+                    html = scrape.pull(result)
+                    analyze.emails(html)
+            case _:
+                q.print("No selection made.", f"fg:{config.Theme.error_fg}")
 
 
 def main() -> int:

@@ -1,5 +1,7 @@
-import questionary
+import questionary as q
 from ddgs import DDGS
+
+import config
 
 
 def ddg(query: str, type: str = "", n: int = 10) -> list[str]:
@@ -8,13 +10,12 @@ def ddg(query: str, type: str = "", n: int = 10) -> list[str]:
             try:
                 results = DDGS().text(query, max_results=n)
             except Exception as e:
-                questionary.print(f"Search failed: {e}", "fg:red")
+                q.print(f"Search failed: {e}", f"fg:{config.Theme.error_fg}")
                 return []
             return [r["href"] for r in results]
         case _:
-            try:
-                results = DDGS().text(query, max_results=n)
-            except Exception as e:
-                questionary.print(f"Search failed: {e}", "fg:red")
-                return []
-            return [r["href"] for r in results]
+            q.print(
+                "Un-implemented type or no selection made.",
+                f"fg:{config.Theme.error_fg}",
+            )
+            return []
