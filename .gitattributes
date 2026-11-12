@@ -5,6 +5,7 @@ docs/**            linguist-documentation
 *.lock             linguist-detectable=false
 .zed/**            linguist-detectable=false
 .github/**         linguist-detectable=false
+testing/**         linguist-detectable=false
 
 *.jpg              -text linguist-detectable=false
 *.png              -text linguist-detectable=false
