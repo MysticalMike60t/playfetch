@@ -10,3 +10,9 @@ def clean_domain(domain: str) -> str:
         _ = re.sub(SUBDOMAIN_WWW_RE, r"\1__\2", _)
         break
     return _
+
+
+# Basic non-regex cleanup
+def clean_for_path(text: str) -> str:
+    text = text.replace(" ", "_").replace("\\", "+").replace("/", "+")
+    return text

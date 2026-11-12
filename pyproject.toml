@@ -7,7 +7,13 @@ authors = [
     { name = "MysticalMike60t", email = "121118774+MysticalMike60t@users.noreply.github.com" },
 ]
 requires-python = ">=3.14"
-dependencies = ["bs4>=0.0.2", "requests>=2.34.2"]
+dependencies = [
+    "art>=6.5",
+    "bs4>=0.0.2",
+    "ddgs>=9.16.1",
+    "questionary>=2.1.1",
+    "requests>=2.34.2",
+]
 
 [project.scripts]
 playfetch = "main:main"
