@@ -1,5 +1,5 @@
 [attr]image        -text -linguist-detectable linguist-generated
-[attr]donotcredit  -linguist-detectable
+[attr]donotcredit  -linguist-detectable linguist-generated
 
 *.jpg              image
 *.png              image
