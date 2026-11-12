@@ -1,6 +1,6 @@
 [project]
 name = "playfetch"
-version = "0.1.0"
+version = "2026.11.11.1"
 description = "Final python group project and presentation for CSPC 118, 2026."
 readme = "README.md"
 authors = [
