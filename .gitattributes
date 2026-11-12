@@ -1,15 +1,13 @@
+docs/**            linguist-documentation
+
+*.html             linguist-detectable=false
+*.css              linguist-detectable=false
+*.lock             linguist-detectable=false
+.zed/**            linguist-detectable=false
+.github/**         linguist-detectable=false
+
 *.jpg              -text linguist-detectable=false
 *.png              -text linguist-detectable=false
 *.bmp              -text linguist-detectable=false
 *.ico              -text linguist-detectable=false
 *.icns             -text linguist-detectable=false
-
-*.html             linguist-detectable=false
-*.css              linguist-detectable=false
-*.md               linguist-detectable=false
-*.lock             linguist-detectable=false
-LICENSE            linguist-detectable=false
-.zed/*             linguist-detectable=false
-.github/*          linguist-detectable=false
-*.spec             linguist-detectable=false
-specs/*            linguist-detectable=false
