@@ -51,32 +51,22 @@ def init_head():
 
 
 def handle_search():
-    search_type: str = tui.qselect(
-        "Select search type:",
-        choices=[
-            "Any",
-            "Email",
-            "Username",
-            "Name",
-            "Phone Number",
-            "Domain",
-            "Quit",
-        ],
-    )
+    SEARCH_TYPES = {
+        "Any": "any",
+        "Email": "email",
+        "Username": "username",
+        "Name": "name",
+        "Phone Number": "phone",
+        "Domain": "domain",
+    }
+
+    search_type = tui.qselect("Select search type:", choices=[*SEARCH_TYPES, "Quit"])
     if search_type == "Quit":
         os_handles.quit(0)
-    match search_type:
-        case "Email":
-            search_filter: str = q.text(f"Enter the {search_type.lower()}:").ask()
-            results = search.ddg(search_filter, type="email", n=20)
-        case "Any":
-            search_filter: str = q.text(f"Enter search query:").ask()
-            results = search.ddg(search_filter, type="any", n=20)
-        case _:
-            search_filter: str = ""  # To shut up the errors
-            os_handles.quit(0)
+
+    query = q.text(f"Enter {search_type.lower()}:").ask()
     timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
-    dump_path = f"{config.Paths.cwd}/{timestamp}_{clean_for_path(search_filter)}"
+    dump_path = f"{config.Paths.cwd}/{timestamp}_{clean_for_path(query)}"
     if not os.path.exists(dump_path):
         os.mkdir(dump_path)
     # q.print(
@@ -84,9 +74,7 @@ def handle_search():
     #     f"fg:{Theme.debug_fg}",
     # )
     config.Paths.cwd = f"{dump_path}"
-    config.Paths.datafile = (
-        f"{dump_path}/{random.randrange(100000, 999999)}_{search_filter}"
-    )
+    config.Paths.datafile = f"{dump_path}/{random.randrange(100000, 999999)}_{query}"
     # q.print(
     #     f"Current datafile path: {config.Paths.datafile}", f"fg:{Theme.debug_fg}"
     # )
@@ -94,7 +82,7 @@ def handle_search():
         datafile.writelines(
             [
                 f"Search Type: {search_type}\n",
-                f"Filter (search query): {search_filter}\n",
+                f"Filter (search query): {query}\n",
             ]
         )
         # q.print("Done writing inputs to datafile", f"fg:{Theme.debug_fg}")
@@ -103,13 +91,18 @@ def handle_search():
         "You may get rate-limited, which will fail to return any results.",
         style=f"fg:{Theme.warning_fg}",
     )
-    if q.confirm(f"Search duckduckgo for {search_filter}?").ask():
+    if q.confirm(f"Search duckduckgo for {query}?").ask():
         tui.cseperator()
+        num_results: int = 20
         match search_type:
             case "Any":
-                results: list[str] = search.ddg(search_filter, type="Any", n=20)
+                results: list[str] = search.ddg(
+                    query, type=SEARCH_TYPES["Any"], n=num_results
+                )
             case "Email":
-                results: list[str] = search.ddg(search_filter, type="email", n=20)
+                results: list[str] = search.ddg(
+                    query, type=SEARCH_TYPES["Email"], n=num_results
+                )
             case _:
                 results: list[str] = []
                 q.print("No search type selection made.", f"fg:{Theme.error_fg}")
