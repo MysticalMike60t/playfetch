@@ -1,10 +1,11 @@
-import pathlib
 from dataclasses import dataclass, field
+
+import os_handles
 
 
 @dataclass
 class Paths:
-    cwd: str = str(pathlib.Path().absolute())
+    cwd: str = str(os_handles.app_dir())
     datafile: str = field(default=f"{cwd}/.datafile")
     datadump: str = field(default=f"{cwd}/.datadump")
 

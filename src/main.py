@@ -29,6 +29,8 @@ from validation import clean_for_path
 # IDEA: Checks business or other official records hosted places for names in domain,
 # or inside of the page's main/branding elements detected by algorithm.
 
+# NEED TO ADD: Check if binary is inside of bin or PATH directory. Then, determine where generated files go.
+
 
 def init_head():
     tui.tclear()
