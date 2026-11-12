@@ -1,4 +1,4 @@
-__version__ = "2026.11.11.1"
+__version__ = "2026.11.12.1"
 
 import os
 import random
