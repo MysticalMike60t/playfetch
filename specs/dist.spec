@@ -1,11 +1,16 @@
 # -*- mode: python ; coding: utf-8 -*-
+import os
 
+import playwright
+
+playwright_dir = os.path.dirname(playwright.__file__)
+browsers_path = os.path.expanduser("~/.cache/ms-playwright")
 
 a = Analysis(
     ["../src/main.py"],
     pathex=[],
     binaries=[],
-    datas=[],
+    datas=[(browsers_path, "playwright/driver/package/.local-browsers")],
     # hiddenimports=["pygments.lexers.python", "pygments.styles.default"],
     hookspath=[],
     hooksconfig={},
@@ -51,8 +56,8 @@ a = Analysis(
     #     "mimetypes",
     #     "py_compile",
     # ],
-    noarchive=False,
-    optimize=2,
+    noarchive=True,
+    optimize=0,
 )
 pyz = PYZ(a.pure)
 
@@ -65,7 +70,7 @@ exe = EXE(
     name="playfetch",
     debug=False,
     bootloader_ignore_signals=False,
-    strip=True,
+    strip=False,
     upx=True,
     # upx_exclude=[
     #     "vcruntime140.dll",

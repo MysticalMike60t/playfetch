@@ -14,6 +14,8 @@ try:
 except PackageNotFoundError:
     __version__ = "x.x.x+unknown"
 
+DEFAULT_USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+
 
 @dataclass
 class Paths:
@@ -28,6 +30,7 @@ class Theme:
     accent_dark_hex: str = "#608522"
     accent_muted_hex: str = "#2E382A"
     bg_hex: str = "#30362C"
+    accent_fg: str = accent_hex
     info_fg: str = "#65ADFC"
     debug_fg: str = "#CB95F0"
     status_fg: str = "#E8D409"

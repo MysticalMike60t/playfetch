@@ -15,7 +15,7 @@ import os_handles
 import scrape
 import search
 import tui
-from config import Theme
+from config import Instances, Theme
 from validation import clean_for_path
 
 # IDEA: Gets ALL information useful to OSINT. Not just from a single platform, and also
@@ -60,7 +60,9 @@ def handle_search():
         "Domain": "domain",
     }
 
-    search_type = tui.qselect("Select search type:", choices=[*SEARCH_TYPES, "Quit"])
+    search_type = (
+        tui.qselect("Select search type:", choices=[*SEARCH_TYPES, "Quit"]) or "Quit"
+    )
     if search_type == "Quit":
         os_handles.quit(0)
 
@@ -120,28 +122,52 @@ def handle_search():
             datafile.writelines(f"{url}\n")
             q.print(f">\t{url}", f"italic fg:{Theme.output_fg}")
     # q.print("Done searching", f"fg:{Theme.debug_fg}")
-    if q.confirm("Scrape these pages for data?").ask():
+    if q.confirm("Scrape these pages for data (n will skip to next result)?").ask():
         match q.select(
-            "Search For:",
-            ["Emails", "URLs"],
+            "Search these pages for:",
+            choices=["Emails", "URLs"],
             style=Theme.Questionary,
             pointer=Theme.questionary_select_pointer,
         ).ask():
             case "Emails":
                 for result in results:
-                    q.print(f"Scraping {result}", f"fg:{Theme.info_fg}")
-                    html = scrape.pull(result)
-                    analyze.emails(html)
+                    try:
+                        q.print(
+                            f"Scraping {result} for emails...", f"fg:{Theme.info_fg}"
+                        )
+                        html = scrape.pull(result)
+                        analyze.emails(html)
+                    except Exception as e:
+                        q.print(
+                            f'Failed scraping "{result}", Unsupported result',
+                            f"fg:{Theme.error_fg}",
+                        )
+
             case "URLs":
                 for result in results:
                     q.print(f"Scraping {result}", f"fg:{Theme.info_fg}")
-                    html = scrape.pull(result)
-                    urls_list = analyze.urls(html, True) or list()
-                    if q.confirm("Scrape these pages for data?").ask():
-                        for url in urls_list:
-                            q.print(f"Scraping {url}", f"fg:{Theme.info_fg}")
-                            html = scrape.pull(url)
-                            analyze.emails(html)
+                    try:
+                        html = scrape.pull(result)  # cause of url crash
+                        urls_list = analyze.urls(html, True) or list()
+                        if q.confirm("Scrape these pages for emails?").ask():
+                            for url in urls_list:
+                                try:
+                                    q.print(
+                                        f"Scraping {url} for emails...",
+                                        f"fg:{Theme.info_fg}",
+                                    )
+                                    html = scrape.pull(url)
+                                    analyze.emails(html)
+                                except Exception as e:
+                                    q.print(
+                                        f'Failed scraping "{url}", Unsupported URL\n{e}',
+                                        f"fg:{Theme.error_fg}",
+                                    )
+                    except Exception as e:
+                        q.print(
+                            f'Failed scraping "{result}", Unsupported result\n{e}',
+                            f"fg:{Theme.error_fg}",
+                        )
             case _:
                 q.print("No selection made.", f"fg:{Theme.error_fg}")
 
@@ -159,43 +185,6 @@ def main() -> int:
         if not q.confirm("Go back?").ask():
             break
     # q.print("Done", f"fg:{Theme.debug_fg}")
-
-    # inputs = {"domain": input("Domain: "), "path": input("Path (without first '/'): ")}
-    # config.Paths.cwd = f"{config.Paths.datadump}"
-    # print(f"Current working directory: {config.Paths.cwd}")
-    # timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
-    # cleaned_domain = inputs["domain"].replace(".", "_")
-    # dump_path = f"{config.Paths.cwd}/{timestamp}_{cleaned_domain}"
-    # print(f"Current dump directory: {dump_path}")
-    # config.Paths.cwd = f"{dump_path}"
-    # if not os.path.exists(dump_path):
-    #     os.mkdir(dump_path)
-    # print(
-    #     f"Current working directory (after switching to dump_path): {config.Paths.cwd}"
-    # )
-    # config.Paths.datafile = (
-    #     f"{dump_path}/{random.randrange(100000, 999999)}_{cleaned_domain}"
-    # )
-    # print(f"Current datafile path: {config.Paths.datafile}")
-    # with open(config.Paths.datafile, "a") as datafile:
-    #     datafile.writelines(
-    #         [
-    #             "User input:\n",
-    #             f"\tDomain: {inputs['domain']}\n",
-    #             f"\tPath: {inputs['path']}\n",
-    #             "\n",
-    #         ]
-    #     )
-    #     print("Wrote domain and path to datafile")
-    # res = requests.get(
-    #     f"http://{inputs['domain']}/{inputs['path']}"
-    # )  # Add validation and ask if HTTPS (defaults to yes)
-    # print("Finished HTTP/HTTPS request")
-    # soup = BeautifulSoup(res.content, "html.parser")
-    # print("Created soup")
-    # print("Starting analysis")
-    # analyze.navigation(soup)
-    # print("Finished analysis")
     return 0
 
 
