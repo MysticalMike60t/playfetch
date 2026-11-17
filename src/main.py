@@ -99,13 +99,19 @@ def handle_search():
                 results: list[str] = search.ddg(
                     query, type=SEARCH_TYPES["Any"], n=num_results
                 )
+                if results.__len__() == 0:
+                    return
             case "Email":
                 results: list[str] = search.ddg(
                     query, type=SEARCH_TYPES["Email"], n=num_results
                 )
+                if results.__len__() == 0:
+                    return
             case _:
                 results: list[str] = []
                 q.print("No search type selection made.", f"fg:{Theme.error_fg}")
+                if results.__len__() == 0:
+                    return
 
     else:
         return
@@ -117,7 +123,7 @@ def handle_search():
     if q.confirm("Scrape these pages for data?").ask():
         match q.select(
             "Search For:",
-            ["Emails"],
+            ["Emails", "URLs"],
             style=Theme.Questionary,
             pointer=Theme.questionary_select_pointer,
         ).ask():
@@ -126,6 +132,16 @@ def handle_search():
                     q.print(f"Scraping {result}", f"fg:{Theme.info_fg}")
                     html = scrape.pull(result)
                     analyze.emails(html)
+            case "URLs":
+                for result in results:
+                    q.print(f"Scraping {result}", f"fg:{Theme.info_fg}")
+                    html = scrape.pull(result)
+                    urls_list = analyze.urls(html, True) or list()
+                    if q.confirm("Scrape these pages for data?").ask():
+                        for url in urls_list:
+                            q.print(f"Scraping {url}", f"fg:{Theme.info_fg}")
+                            html = scrape.pull(url)
+                            analyze.emails(html)
             case _:
                 q.print("No selection made.", f"fg:{Theme.error_fg}")
 

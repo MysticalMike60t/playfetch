@@ -12,8 +12,8 @@ def ddg(query: str, type: str = "any", n: int = 10) -> list[str]:
             except Exception as e:
                 q.print(f"Search failed: {e}", f"fg:{config.Theme.error_fg}")
                 return []
-            for result in results:
-                print(result["text"])
+            # for result in results:
+            #     print(result["title"])
             return [r["href"] for r in results]
         case "any":
             try:

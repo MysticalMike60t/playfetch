@@ -13,6 +13,7 @@ EMAIL_RE = re.compile(
     r"(?![\w-]|\.[a-z0-9])",
     re.IGNORECASE,
 )
+URL_RE = re.compile(r"""https?://[^\s"'<>\\]+""", re.IGNORECASE)
 
 IPV4_ADDR_RE = re.compile(r"^(?:0|10)\.\d{1,3}\.\d{1,3}\.\d{1,3}")
 
